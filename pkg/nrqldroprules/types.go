@@ -11,11 +11,15 @@ type NRQLDropRulesAction string
 var NRQLDropRulesActionTypes = struct {
 	// This action will strip the attributes specified in the SELECT clause of the NRQL string for all events that match the associated NRQL string.
 	DROP_ATTRIBUTES NRQLDropRulesAction
+	// This action will strip the attributes specified in the SELECT clause of the NRQL string for metric aggregates. The event type must be Metric.
+	DROP_ATTRIBUTES_FROM_METRIC_AGGREGATES NRQLDropRulesAction
 	// This action will drop all data that match the associated NRQL string. That string MUST be a `SELECT *`.
 	DROP_DATA NRQLDropRulesAction
 }{
 	// This action will strip the attributes specified in the SELECT clause of the NRQL string for all events that match the associated NRQL string.
 	DROP_ATTRIBUTES: "DROP_ATTRIBUTES",
+	// This action will strip the attributes specified in the SELECT clause of the NRQL string for metric aggregates. The event type must be Metric.
+	DROP_ATTRIBUTES_FROM_METRIC_AGGREGATES: "DROP_ATTRIBUTES_FROM_METRIC_AGGREGATES",
 	// This action will drop all data that match the associated NRQL string. That string MUST be a `SELECT *`.
 	DROP_DATA: "DROP_DATA",
 }

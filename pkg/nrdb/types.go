@@ -180,7 +180,7 @@ type NRDBResultContainer struct {
 	// The [NRQL](https://docs.newrelic.com/docs/insights/nrql-new-relic-query-language/nrql-resources/nrql-syntax-components-functions) query that was executed to yield these results.
 	NRQL NRQL `json:"nrql,omitempty"`
 	// In a `FACET` query, the `otherResult` contains the aggregates representing the events _not_
-	// contained in an individual `results` facet
+	// contained in an individual `results` facet.
 	OtherResult NRDBResult `json:"otherResult,omitempty"`
 	// In a `COMPARE WITH` query, the `previousResults` contain the results for the previous comparison time window.
 	PreviousResults []NRDBResult `json:"previousResults,omitempty"`
@@ -205,7 +205,7 @@ type NRDBResultContainer struct {
 	// Input NRQL must be a TIMESERIES query and must have exactly one result.
 	SuggestedQueries SuggestedNRQLQueryResponse `json:"suggestedQueries,omitempty"`
 	// In a `FACET` query, the `totalResult` contains the aggregates representing _all_ the events,
-	// whether or not they are contained in an individual `results` facet
+	// whether or not they are contained in an individual `results` facet.
 	TotalResult NRDBResult `json:"totalResult,omitempty"`
 }
 

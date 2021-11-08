@@ -6,6 +6,17 @@ import (
 	"fmt"
 )
 
+// EdgeComplianceTypeCode - Compliance type codes that can be applied to a trace observer
+type EdgeComplianceTypeCode string
+
+var EdgeComplianceTypeCodeTypes = struct {
+	// Fedramp compliant
+	FEDRAMP EdgeComplianceTypeCode
+}{
+	// Fedramp compliant
+	FEDRAMP: "FEDRAMP",
+}
+
 // EdgeCreateTraceObserverResponseErrorType - Known error codes and messages for `CreateTraceObserverResponseError`.
 type EdgeCreateTraceObserverResponseErrorType string
 
@@ -66,6 +77,8 @@ var EdgeEndpointTypeTypes = struct {
 type EdgeProviderRegion string
 
 var EdgeProviderRegionTypes = struct {
+	// Provider: `AWS`, Region: `ap-southeast-1`
+	AWS_AP_SOUTHEAST_1 EdgeProviderRegion
 	// Provider: `AWS`, Region: `eu-west-1`
 	AWS_EU_WEST_1 EdgeProviderRegion
 	// Provider: `AWS`, Region: `us-east-1`
@@ -75,6 +88,8 @@ var EdgeProviderRegionTypes = struct {
 	// Provider: `AWS`, Region: `us-west-2`
 	AWS_US_WEST_2 EdgeProviderRegion
 }{
+	// Provider: `AWS`, Region: `ap-southeast-1`
+	AWS_AP_SOUTHEAST_1: "AWS_AP_SOUTHEAST_1",
 	// Provider: `AWS`, Region: `eu-west-1`
 	AWS_EU_WEST_1: "AWS_EU_WEST_1",
 	// Provider: `AWS`, Region: `us-east-1`
@@ -167,6 +182,8 @@ func (x *EdgeAgentEndpointDetail) ImplementsEdgeEndpointDetail() {}
 
 // EdgeCreateTraceObserverInput - Data required to create a trace observer.
 type EdgeCreateTraceObserverInput struct {
+	// Optional list of compliance types (e.g., FedRAMP) applied to this trace observer.
+	ComplianceTypes []EdgeComplianceTypeCode `json:"complianceTypes"`
 	// When set to `true` a trace observer will write trace metrics to the current account.
 	Monitoring bool `json:"monitoring,omitempty"`
 	// Name of the trace observer.
@@ -254,9 +271,9 @@ type EdgeHttpsEndpointDetail struct {
 	// Port that is used to connect to the endpoint.
 	Port int `json:"port"`
 	// Full URL used to send data to the endpoint. For instance, if you were using the
-	//  [Java Telemetry SDK](https://docs.newrelic.com/docs/data-ingest-apis/get-data-new-relic/new-relic-sdks/telemetry-sdks-send-custom-telemetry-data-new-relic)
-	//  this is the data you would use to create a `URI` to pass to the [`uriOverride`](https://github.com/newrelic/newrelic-telemetry-sdk-java/blob/85e526cf6fbba0640f20d2d7a3ab0dab89f958b3/telemetry_core/src/main/java/com/newrelic/telemetry/AbstractSenderBuilder.java#L37-L48)
-	//  method.
+	// [Java Telemetry SDK](https://docs.newrelic.com/docs/data-ingest-apis/get-data-new-relic/new-relic-sdks/telemetry-sdks-send-custom-telemetry-data-new-relic)
+	// this is the data you would use to create a `URI` to pass to the [`uriOverride`](https://github.com/newrelic/newrelic-telemetry-sdk-java/blob/85e526cf6fbba0640f20d2d7a3ab0dab89f958b3/telemetry_core/src/main/java/com/newrelic/telemetry/AbstractSenderBuilder.java#L37-L48)
+	// method.
 	URL string `json:"url"`
 }
 
@@ -298,8 +315,10 @@ type EdgeTraceFilters struct {
 	SpanAttributesTraceFilter EdgeSpanAttributesTraceFilter `json:"spanAttributesTraceFilter"`
 }
 
-// EdgeTraceObserver - `TraceObserver` handles a group of tracing services for an account family.
+// EdgeTraceObserver - A `TraceObserver` handles a group of tracing services for an account family.
 type EdgeTraceObserver struct {
+	// Optional list of compliance types (e.g., FedRAMP) applied to this trace observer.
+	ComplianceTypes []EdgeComplianceTypeCode `json:"complianceTypes"`
 	// List of endpoints associated with this trace observer. Currently, only one endpoint per trace observer is supported.
 	Endpoints []EdgeEndpoint `json:"endpoints"`
 	// Globally unique identifier of this trace observer.
